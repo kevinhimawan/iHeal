@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "kevinhimawanhie",
+    "password": "1",
+    "database": "iHealDevelopment",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
