@@ -32,10 +32,11 @@ app.use(function(req,res,next){
     }
 })
 
-// Routes User
-const Home = require('./routes/user')
 
-app.use('/',Home)
+//Router User
+const User = require('./routes/user') 
+// Use Routes
+app.use('/',User)
 
 // Check Admin
 app.use(function(req,res,next){
@@ -54,5 +55,8 @@ const IllnessAdmin = require('./routes/illness')
 app.use('/admin', IndexAdmin)
 app.use('/admin/medicine', MedicineAdmin)
 app.use('/admin/illness',IllnessAdmin)
+
+
+
 
 app.listen(3000,()=>{console.log(`Welcome Abroad Sir`)})
