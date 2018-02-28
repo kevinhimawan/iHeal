@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <%- include('../../partials/metaHead'); %>
+    <title>Assign Item</title>
+    <style>
+        .container{
+            width: 90% !important;
+            margin: 1em auto !important;
+        }
+
+        .small_button{
+            padding: 0 1rem !important;
+        }
+        .card-title{
+            font-size: 2em !important;
+            letter-spacing: 1px !important;
+            font-weight: 400 !important
+        }
+        .card-subTitle{
+            letter-spacing: 1px !important; 
+            font-size: 1em !important;
+            font-weight: 400 !important;
+        }
+        .card-content{
+            padding:  24px 24px 10px 24px !important
+        }
+
+        .card-p{
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/admin/medicine/assign/<%=medicineData.id%>/back" class="waves-effect waves-light btn small_button" >Back</a>
+        <div class="row">
+            <div class="col s12">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-subTitle">Title:</span>
+                        <span class="card-title"><%=medicineData.name%></span>
+                        <span class="card-subTitle">Description: </span>
+                        <p class="card-p"><%=medicineData.description%></p>
+                        <span class="card-subTitle">List Illness</span>
+                    </div>
+                    
+                    <div class="collection">
+                        <%pickedIllness.forEach(element =>{%>
+                        <a href="/admin/medicine/assign/<%=medicineData.id%>/delete/<%=element.id%>" class="collection-item"><span class="badge">Remove</span><%=element.name%></a>
+                        <%})%>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table class="responsive-table highlight centered">
+            <thead>
+                <tr>
+                    <td>No</td>
+                    <td>Name</td>
+                    <td>Description</td>
+                    <td>Assign</td>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(let [index,value] of unPickIllness.entries()){%>
+                <tr>
+                    <td><%=index+1%></td>
+                    <td><%=value.name%></td>
+                    <td><%=helper(value.description)%></td>
+                    <td><a href="/admin/medicine/assign/<%=medicineData.id%>/<%=value.id%>" class="waves-effect waves-light btn small_button">Assign It</a></td>
+                </tr>
+                <%}%>
+            </tbody>
+        </table>
+    </div>
+    <%- include('../../partials/scriptBasic'); %>
+</body>
+</html>
