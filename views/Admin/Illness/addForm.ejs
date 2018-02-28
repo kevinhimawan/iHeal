@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <title>add Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <%- include('../../partials/metaHead'); %>
+    <title>Add Form Illness</title>
+    <style>
+        .error_message{
+            color: red
+        }
+        .container{
+            width: 90% !important;
+            margin: 1em auto !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <form id="add_illness_form" class="col s12 " action="/admin/illness/add" method="POST">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="name" name="name" type="text" class="validate" autocomplete="off">
+                        <label for="first_name">Illness Name</label>
+                        <%if(error && error.name){%>
+                            <span class="error_message"><%=error.name%></span>
+                        <%}%>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="textarea1" class="materialize-textarea" name="description" form="add_illness_form" autocomplete="off"></textarea>
+                        <label for="textarea1">Illness Description</label>
+                    </div>
+                </div>
+                <input type="submit" class="waves-effect waves-light btn"></input>
+                <a href="/admin/illness/add/back" class="waves-effect waves-light btn" >Cancel</a>
+            </form>
+        </div>
+    </div>
+    <script>
+        $('#textarea1').val('New Text');
+        $('#textarea1').trigger('autoresize');
+    </script>
+    <%- include('../../partials/scriptBasic'); %>
+</body>
+</html>
+    

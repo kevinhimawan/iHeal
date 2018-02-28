@@ -124,7 +124,7 @@ Router.get('/assign/:id',(req,res)=>{
         },[])
         Illness.findAll({where:{id:{[Op.notIn]: illnessId}}}).then(filterIllnessList =>{
             Medicine.findById(medicineId).then(medicineData=>{
-                res.render('Admin/Medicine/assignitem',{
+                res.render('Admin/Medicine/assignItem',{
                     medicineData: medicineData,
                     unPickIllness: filterIllnessList,
                     pickedIllness: list,
