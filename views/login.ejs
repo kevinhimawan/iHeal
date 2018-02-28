@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <%- include('./partials/metaHead'); %>
+    <style>
+        .error_formSignIn{
+            color: red;
+            float: left;
+        }
+    </style>
+    <title>Login</title>
+</head>
+<body>
+    <div class="row" style="width: 50%">
+        <form action="/login" method="POST" class="col s12" style="text-align:center">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input name="name" id="name" type="text" class="validate" autocomplete="off">
+                    <label for="name">Username or Email</label>
+                    <%if(errors && errors.name){%>
+                        <span class="error_formSignIn"><%=errors.name%></span>
+                    <%}%>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input name="password" id="password" type="password" class="validate" autocomplete="off">
+                    <label for="password">Password</label>
+                    <%if(errors && errors.password){%>
+                        <span class="error_formSignIn"><%=errors.password%></span>
+                    <%}%>
+                </div>
+            </div>
+            <input type="submit" class="waves-effect waves-light btn">
+            <a href="/login/signup" style="margin-left:30px" class="waves-effect waves-light btn">Signup</a>
+        </form>
+    </div>
+    <%- include('./partials/scriptBasic'); %>
+</body>
+</html>

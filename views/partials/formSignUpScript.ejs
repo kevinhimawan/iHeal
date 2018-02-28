@@ -1,0 +1,49 @@
+<script>
+function getRandom(){
+    let age = Number(document.getElementById("ageParam").value)
+    
+    if(age === 0){
+        alert(`You should put your age to check your gen A and B`)
+    }else{
+        let random = Math.ceil(Math.random() * age)
+        document.getElementById('genA').value = random
+        let random2 = Math.ceil(Math.random() * age)
+        document.getElementById('genB').value = random2
+        $("#checking").attr("disabled", true);
+    }
+}
+
+function reload(){
+    $("#checking").attr("disabled", false);
+}
+
+$('form').submit(function(e) {
+    var res = true;
+    var pass = false
+    $("input[type='text'],select,input[type='password'],input[type='number']",this).each(function() {
+        if($(this).val().trim() == "") {
+            res = false; 
+        }
+    })
+
+    let password = document.getElementById("passwordId").value
+    let re_password = document.getElementById('re-passwordId').value
+    if(password === re_password){
+        pass = true
+    }
+
+    if(res && pass){
+        return res
+    }else if(res === false){
+        alert('Please input un-filled form')
+        e.preventDefault();
+    }else if(pass === false) { 
+        alert('Password and confirm password should be same')
+        document.getElementById('passwordId').value = ''
+        document.getElementById('re-passwordId').value = ''
+        e.preventDefault();
+    }else{
+        e.preventDefault();
+    }
+});
+</script>

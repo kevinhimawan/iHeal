@@ -11,7 +11,13 @@ module.exports = {
       role: {
         type: Sequelize.STRING
       },
-      name: {
+      username:{
+        type: Sequelize.STRING
+      },
+      firstName: {
+        type: Sequelize.STRING
+      },
+      lastName:{
         type: Sequelize.STRING
       },
       age: {
@@ -24,6 +30,9 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       email: {
+        type: Sequelize.STRING
+      },
+      password:{
         type: Sequelize.STRING
       },
       createdAt: {
