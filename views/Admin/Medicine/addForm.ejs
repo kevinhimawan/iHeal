@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <%- include('../../partials/metaHead'); %>
+    <title>Add Form Medicine</title>
+    <style>
+        .error_message{
+            color: red
+        }
+        .container{
+            width: 90% !important;
+            margin: 1em auto !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <form id="add_medicine_form" class="col s12 " action="/admin/medicine/add" method="POST">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="name" name="name" type="text" class="validate" autocomplete="off">
+                        <label for="first_name">Medicine Name</label>
+                        <%if(error && error.name){%>
+                            <span class="error_message"><%=error.name%></span>
+                        <%}%>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="brand" name="brand" type="text" class="validate" autocomplete="off">
+                        <label for="last_name">Brand Name</label>
+                        <%if(error && error.brand){%>
+                            <span class="error_message"><%=error.brand%></span>
+                        <%}%>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="textarea1" class="materialize-textarea" name="description" form="add_medicine_form" autocomplete="off"></textarea>
+                        <label for="textarea1">Medicine Description</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="minGenA" name="minGenA" type="number" class="validate" autocomplete="off">
+                        <label for="minGenA">Minimum Gen A</label>
+                    </div>
+                        <div class="input-field col s6">
+                        <input id="maxGenA" name="maxGenA" type="number" class="validate" autocomplete="off">
+                        <label for="maxGenA">Maximum Gen A</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="minGenB" name="minGenB" type="number" class="validate" autocomplete="off">
+                        <label for="minGenB">Minimum Gen B</label>
+                    </div>
+                        <div class="input-field col s6">
+                        <input id="maxGenB" name="maxGenB" type="number" class="validate" autocomplete="off">
+                        <label for="maxGenB">Maximum Gen B</label>
+                    </div>
+                </div>
+                <input type="submit" class="waves-effect waves-light btn"></input>
+                <a href="/admin/medicine/add/back" class="waves-effect waves-light btn" >Cancle</a>
+            </form>
+        </div>
+    </div>
+    <script>
+        $('#textarea1').val('New Text');
+        $('#textarea1').trigger('autoresize');
+    </script>
+    <%- include('../../partials/scriptBasic'); %>
+</body>
+</html>

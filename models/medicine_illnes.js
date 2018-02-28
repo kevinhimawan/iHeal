@@ -10,5 +10,19 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   });
+
+  Medicine_illnes.associate = function(models){
+    // Medicine_illnes --> Medicine
+    Medicine_illnes.belongsTo(models.Medicine,{
+      foreignKey: 'medicineId',
+      hooks: true
+    })
+
+    // Medicine_illnes --> Illness
+    Medicine_illnes.belongsTo(models.Illness,{
+      foreignKey: 'ilnessId',
+      hooks: true
+    })
+  }
   return Medicine_illnes;
 };
