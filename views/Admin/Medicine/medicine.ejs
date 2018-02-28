@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <%- include('../../partials/metaHead'); %>
+    
+    <title>Medicine</title>
+    <style>
+        .container{
+            width: 90% !important;
+            margin: 1em auto !important;
+        }
+
+        .small_button{
+            padding: 0 1rem !important;
+        }        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/admin/medicine/back" class="waves-effect waves-light btn small_button" >Back</a>
+        <a class="waves-effect waves-light btn small_button" href="/admin/medicine/add">Add Medicine</a>
+        <table class="responsive-table highlight centered">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Name</th>
+                    <th>Brand</th>
+                    <th>Illness List</th>
+                    <th>Assign Illness</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(let [index,value] of medicineData.entries()){%>
+                    <tr>
+                        <td><%=index+1%></td>
+                        <td><%=value.name%></td>
+                        <td><%=value.brand%></td>
+                        <td></td>
+                        <td><a href="/admin/medicine/assign/<%=value.id%>" class="waves-effect waves-light btn small_button">Assign</a></td>
+                        <td>
+                            <a href="/admin/medicine/edit/<%=value.id%>" class="waves-effect waves-light btn small_button">Edit</a>
+                            <a href="/admin/medicine/delete/<%=value.id%>" class="waves-effect waves-light btn small_button" onclick="return confirm('Sure want to delete this medicine? Yer or No')" >Delete</a>
+                        </td>
+                    </tr>
+                <%}%>
+            </tbody>
+        </table>
+    </div>
+    
+   
+    <%- include('../../partials/sweetAlert'); %>
+    <%- include('../../partials/scriptBasic'); %>
+    <!-- <script>
+        $(document).ready(function(){
+            $("#hi").click(function(){
+                swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this imaginary file!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        swal("Poof! Your imaginary file has been deleted!", {
+                        icon: "success",
+                        });
+                    } else {
+                        swal("Your imaginary file is safe!");
+                    }
+                });
+            })
+        })
+    </script> -->
+</body>
+</html>
