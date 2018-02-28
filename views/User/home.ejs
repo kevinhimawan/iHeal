@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html> 
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Search</title>
+</head>
+<body>
+    <center>
+        <h2>Search Page</h2>
+        </br>
+        <form action="/" method="post">
+            <label for="">User Symptoms</label>
+            </br>
+            <input type="text" placeholder="indication" name = "search">
+            </br>
+            </br>
+            <button type="submit">Submit</button>
+        </form>
+        <%if(data !== null){%>
+            <%if(data.length == 0){%>
+                </br>
+                <p style = color:red >Harap memakai KEYWORD yang tepat<p>
+            <%}else if(data.length >0){%>
+            <table>
+                <tr>
+                    <th>No</th>
+                    <th>Illness Name</th>
+                    <th>Description</th>
+                    <th>Illness Detail<th>
+                </tr>
+                <%data.forEach((data,index)=>{%>
+                <tr>
+                    <td> <%= index+1    %></td>
+                    <td> <%= data.name    %></td>
+                    <td> <%= helper(data.description) %></td>
+                    <td>
+                    <a href = "/<%=data.id%>/medicine_detail">View</a>
+                    </td>
+                </tr>
+                <%})%>
+                </table>
+            <%} %>
+        <%}%>
+    </center>
+</body>
+</html>

@@ -5,6 +5,7 @@ function limit100Letters(value){
             string+= value[i]
         }
     }
+    string += '...'
     return string.trim()
 }
 
