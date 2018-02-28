@@ -1,4 +1,5 @@
 const Router = require('express').Router()
+
 const Op = require('sequelize').Op
 
 // Model
@@ -31,6 +32,6 @@ Router.get('/:id/medicine_detail',(req,res)=>{
     Illness.findById(illnessId,{include:Medicine}).then(data=>{
         res.render('User/illness_detail',{data:data})
     })
-})
+
 
 module.exports = Router

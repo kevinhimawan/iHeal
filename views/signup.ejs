@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <%- include('./partials/metaHead'); %>
+    <style>
+        .error_formSignUp{
+            color: red;
+            float: left;
+        }
+    </style>
+    <title>Login</title>
+</head>
+<body>
+    <div class="row" style="width: 50%">
+        <form action="/login/signup" method="POST" class="col s12" style="text-align:center">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input name="firstName" id="first_name" type="text" class="validate" autocomplete="off">
+                    <label for="first_name">First Name</label>
+                    <%if(err && err.firstName){%>
+                        <span class="error_formSignUp"><%=err.firstName%></span>
+                    <%}%>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input name="lastName" id="last_name" type="text" class="validate" autocomplete="off">
+                    <label for="last_name">Last Name</label>
+                    <%if(err && err.lastName){%>
+                        <span class="error_formSignUp"><%=err.lastName%></span>
+                    <%}%>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input name="username" id="user_name" type="text" class="validate" autocomplete="off">
+                    <label for="user_name">User Name</label>
+                    <%if(err && err.username){%>
+                        <span class="error_formSignUp"><%=err.username%></span>
+                    <%}%>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input name="email" id="email" type="email" class="validate" autocomplete="off">
+                    <label for="Email">Email</label>
+                    <%if(err && err.email){%>
+                        <span class="error_formSignUp"><%=err.email%></span>
+                    <%}%>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field inline col s3">
+                    <input id="ageParam" name="age" type="number" class="validate">
+                    <label for="email" data-error="wrong" data-success="right">Age</label>
+                    <%if(err && err.age){%>
+                        <span class="error_formSignUp"><%=err.age%></span>
+                    <%}%>
+                </div>
+                <div class="input-field inline col s3">
+                    <input id="genA" name="genA" type="number" class="validate" placeholder="Gen A">
+                </div>
+                <div class="input-field inline col s3">
+                    <input id="genB" name="genB" type="number" class="validate" placeholder="Gen B">
+                </div>
+                <div class="input-field inline col s2">
+                    <button style="padding:0 1em" class="waves-effect waves-light btn" type="button" onclick="getRandom()" id="checking"><i class="material-icons">mood</i></button>
+                </div>
+                <div class="input-field inline col s1">
+                    <button style="padding:0 1em" class="waves-effect waves-light btn" type="button" onclick="reload()" id="refresh"><i class="material-icons">refresh</i></button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input name="password" id="passwordId" type="password" class="validate">
+                    <label for="passowrd">Password</label>
+                    <%if(err && err.password){%>
+                        <span class="error_formSignUp"><%=err.password%></span>
+                    <%}%>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input name="re_password" id="re-passwordId" type="password" class="validate">
+                    <label for="re-passowrd">Re-Password</label>
+                </div>
+            </div>
+            <input type="submit" class="waves-effect waves-light btn">
+            <a href="/login" style="margin-left:30px" class="waves-effect waves-light btn">Login</a>
+        </form>
+      </div>
+      
+    <%- include('./partials/formSignUpScript'); %>
+    <%- include('./partials/scriptBasic'); %>
+</body>
+</html>
