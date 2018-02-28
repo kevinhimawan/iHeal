@@ -10,11 +10,7 @@ const Illness = Models.Illness
 // Code...
 // Medicine Admin Dashboard
 Router.get('/',(req,res)=>{
-    Medicine.findAll({
-        attributes: {
-            exclude: ['description']
-        }
-    }).then(medicineData =>{
+    Medicine.findAll().then(medicineData =>{
         res.render('Admin/Medicine/medicine', {
             medicineData: medicineData
         })
@@ -142,10 +138,13 @@ Router.get('/assign/:id/back',(req,res)=>{
 
 // Add Assign Illness
 Router.get('/assign/:medicineId/:illnessId',(req,res)=>{
+    // console.log(req.params.illnessId)
     let addingItem = {
-        ilnessId: Number(req.body.params.illnessId),
-        medicineId: Number(req.body.params.medicineId),
+        ilnessId: Number(req.params.illnessId),
+        medicineId: Number(req.params.medicineId),
     }
+    console.log(addingItem)
+    
     Medicine_illnes.create(addingItem).then(done=>{
         res.redirect(req.get(`referer`))
     })
@@ -153,8 +152,9 @@ Router.get('/assign/:medicineId/:illnessId',(req,res)=>{
 
 // Assign Illness Delete
 Router.get('/assign/:medicineId/delete/:illnessId',(req,res)=>{
-    let medicineId = Number(req.params.medicineId), illnessId = Number(req.params.illnessId)
-    Medicine_illnes.destroy({where:{medicineId:medicineId,illnessId:illnessId}}).then(deleted =>{
+    let medicineId = Number(req.params.medicineId)
+    let illnessId = Number(req.params.illnessId)
+    Medicine_illnes.destroy({where:{medicineId: medicineId,ilnessId: illnessId}}).then(deleted =>{
         res.redirect(req.get(`referer`))
     })
 })

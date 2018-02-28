@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <%- include('../../partials/metaHead'); %>
+    <title>Detail</title>
+</head>
+<body>
+    <div class="container" style="width:90%">
+        <a href="/admin/illness/view/<%=illnessData.id%>/back" class="waves-effect waves-light btn small_button" ><i class="material-icons">arrow_back</i></a>
+        <div class="row">
+            <div class="col s12">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-subTitle">Illness Name:</span>
+                        <span class="card-title"><%=illnessData.name%></span>
+                        <span class="card-subTitle">Description: </span>
+                        <p class="card-p"><%=illnessData.description%></p>
+                        <span class="card-subTitle">List Illness</span>
+                    </div>
+                    
+                    <div class="collection">
+                        <%assigned.forEach(element =>{%>
+                        <a href="/admin/illness/view/<%=element.ilnessId%>/delete/<%=element.medicineId%>" class="collection-item"><span class="badge"><i class="material-icons">delete</i></span><%=element.Medicine.name%></a>
+                        <%})%>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table class="responsive-table highlight centered">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Name</th>
+                    <th>Brand</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(let [index,value] of unAssigned.entries()){%>
+                    <tr>
+                        <td><%=index+1%></td>
+                        <td><%=value.name%></td>
+                        <td><%=value.brand%></td>
+                        <td><%=value.description%></td>
+                        <td style="width:18%"><a href="/admin/illness/view/<%=illnessData.id%>/assign/<%=value.id%>" class="waves-effect waves-light btn small_button"><i class="material-icons">add</i></a></td>
+                    </tr>
+                <%}%>
+            </tbody>
+        </table>
+    </div>
+    <%- include('../../partials/sweetAlert'); %>
+    <%- include('../../partials/scriptBasic'); %>
+</body>
+</html>

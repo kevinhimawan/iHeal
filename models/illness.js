@@ -33,6 +33,25 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     description: DataTypes.TEXT
+  },{
+    hooks:{
+      afterDestroy(user,option){
+        sequelize.models.Medicine_illnes.findAll({
+          where:{ilnessId:user.id}
+        }).then(conjunctionData =>{
+          const destroy = conjunctionData.map(each =>{
+            return new Promise ((resolve,reject)=>{
+              sequelize.models.Medicine_illnes.destroy({where:{ilnessId:each.ilnessId}}).then(result=>{
+                resolve(result)
+              })
+            })
+          })
+          Promise.all(destroy).then(done =>{
+
+          })
+        })
+      }
+    }
   })
   
   Illness.associate = function(models){

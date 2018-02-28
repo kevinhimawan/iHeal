@@ -34,6 +34,7 @@ Router.get('/add/back',(req,res)=>{
 
 // Post Add
 Router.post('/add',(req,res)=>{
+    console.log(req.body)
     let illnessCreate = {
         name: req.body.name,
         description: req.body.description,
@@ -62,7 +63,6 @@ Router.get('/edit/:id',(req,res)=>{
 
 // Edit Back
 Router.get('/edit/:id/back',(req,res)=>{
-    console.log('helo')
     res.redirect('/admin/illness')
 })
 
@@ -72,6 +72,7 @@ Router.post('/edit/:id',(req,res)=>{
         name : req.body.name,
         description: req.body.description
     }
+    console.log(illnessUpdate)
     Illness.update(illnessUpdate,{where:{id:illnessId}}).then(result=>{
         res.redirect('/admin/illness')
     }).catch((err)=>{
@@ -89,6 +90,52 @@ Router.get('/delete/:id',(req,res)=>{
     })
 })
 
+Router.get('/view/:id/back',(req,res)=>{
+    res.redirect('/admin/illness')
+})
+
+// View Detail Medicine
+Router.get('/view/:id',(req,res)=>{
+    let illnessId = Number(req.params.id)
+    Medicine_illnes.findAll({
+        where:{ilnessId:illnessId},include:[{model:Illness},{model:Medicine}]
+    }).then(allAssigned=>{
+        const allMedicineId = allAssigned.reduce((hasil,each)=>{
+            hasil.push(each.medicineId)
+            return hasil
+        },[])
+        Medicine.findAll({where:{id:{[Op.notIn]: allMedicineId}}}).then(unAssignedMedicine=>{
+            Illness.findById(illnessId).then(illnessData =>{
+                res.render('Admin/Illness/detail',{
+                    assigned: allAssigned,
+                    illnessData: illnessData,
+                    unAssigned: unAssignedMedicine
+                })
+            })
+        })
+    })
+})
+
+// Destroy Medicine
+Router.get('/view/:illnessId/delete/:medicineId',(req,res)=>{
+    Medicine_illnes.destroy({where:{
+        ilnessId: Number(req.params.illnessId),
+        medicineId: Number(req.params.medicineId)
+    }}).then(done =>{
+        res.redirect(req.get(`referer`))
+    })
+})
+
+// Assign Medicine
+Router.get('/view/:illnessId/assign/:medicineId',(req,res)=>{
+    let assign = {
+        ilnessId: Number(req.params.illnessId),
+        medicineId: Number(req.params.medicineId)
+    }
+    Medicine_illnes.create(assign).then(done =>{
+        res.redirect(req.get(`referer`))
+    })
+})
 
 
 module.exports = Router

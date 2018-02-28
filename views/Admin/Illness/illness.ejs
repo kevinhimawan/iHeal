@@ -19,15 +19,15 @@
 </head>
 <body>
     <div class="container">
-        <a href="/admin/illness/back" class="waves-effect waves-light btn small_button" >Back</a>
-        <a class="waves-effect waves-light btn small_button" href="/admin/illness/add">Add Illness</a>
+        <a href="/admin/illness/back" class="waves-effect waves-light btn small_button" ><i class="material-icons">arrow_back</i></a>
+        <a class="waves-effect waves-light btn small_button" href="/admin/illness/add"><i class="material-icons">add</i></a>
         <table class="responsive-table highlight centered">
             <thead>
                 <tr>
                     <th>No</th>
                     <th>Illness List</th>
                     <th>Description</th>
-                    <th>Action</th>
+                    <th style="width:25%">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,8 +37,9 @@
                         <td><%=value.name%></td>
                         <td><%=value.description%></td>
                         <td>
-                            <a href="/admin/illness/edit/<%=value.id%>" class="waves-effect waves-light btn small_button">Edit</a>
-                            <a href="/admin/illness/delete/<%=value.id%>" class="waves-effect waves-light btn small_button" onclick="return confirm('Sure want to delete this data?')" >Delete</a>
+                            <a href="/admin/illness/edit/<%=value.id%>" class="waves-effect waves-light btn small_button"><i class="material-icons">edit</i></a>
+                            <a href="/admin/illness/delete/<%=value.id%>" class="waves-effect waves-light btn small_button" onclick="return confirm('Sure want to delete this data?')" ><i class="material-icons">delete</i></a>
+                            <a href="/admin/illness/view/<%=value.id%>" class="waves-effect waves-light btn small_button"><i class="material-icons">assignment</i></a>
                         </td>
                     </tr>
                 <%}%>

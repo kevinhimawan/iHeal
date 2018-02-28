@@ -61,7 +61,7 @@ module.exports = (sequelize, DataTypes) => {
     minGenA: DataTypes.INTEGER,
     maxGenA: DataTypes.INTEGER,
     minGenB: DataTypes.INTEGER,
-    maxGenB: DataTypes.INTEGER
+    maxGenB: DataTypes.INTEGER,
   },{
     hooks:{
       afterDestroy(user,option){
