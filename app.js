@@ -10,6 +10,9 @@ app.use(bodyParser.urlencoded({extended:false}))
 // View
 app.set('view engine','ejs')
 
+// Static
+app.use(express.static(__dirname + '/public'));
+
 // Session
 app.use(session({
     key: 'userId',
@@ -53,8 +56,14 @@ const MedicineAdmin = require('./routes/medicine')
 const IllnessAdmin = require('./routes/illness')
 
 app.use('/admin', IndexAdmin)
+
 app.use('/admin/medicine', MedicineAdmin)
 app.use('/admin/illness',IllnessAdmin)
+
+// app.use((req,res,next)=>{
+//     req.session.destroy()
+//     res.render('landingError')
+// })
 
 
 

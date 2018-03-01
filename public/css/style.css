@@ -1,0 +1,56 @@
+nav{
+    padding: 0 15px;
+    margin-bottom: 7em !important;  
+    background-color: transparent !important;
+    border: 0px !important;
+    box-shadow: none !important;  
+}
+
+.search_input{
+    width: 80% !important;
+    border-radius: 30px 0 0 30px !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
+    height: 4em !important;
+    border: 1px !important;
+    padding: 0 22px 0 40px !important;
+    box-sizing: border-box !important;
+    background-color: white !important;
+}
+.home_moto{
+    display: inline-block;
+    color: #ffffff;
+}
+
+.inline_motto{
+    margin :-0.4rem 0 .912rem 0.55em !important ;
+}
+
+.row_home{
+    text-align: center !important;
+    padding: 0 0 7em 0 !important;
+    background-image: url("img/home_front.jpeg");
+}
+
+.button_submit_search{
+    height: 4em !important; 
+    margin: 0 0 22px -3px !important;
+    border-radius: 0 30px 30px 0px !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
+    border: 1px !important;
+    box-sizing: border-box !important;
+}
+
+.color_button_search{
+    background-color: #ee6e72 !important;
+}
+
+.error_message{
+    color: red;
+    text-align: center;
+    font-size: 1.4em;
+    letter-spacing: .5px;
+}
+
+.materialize-textarea{
+    padding: .8em 0 0em 0 !important;
+}

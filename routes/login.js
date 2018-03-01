@@ -52,6 +52,7 @@ Router.get('/signup',(req,res)=>{
 })
 
 Router.post('/signup',(req,res)=>{
+    
     let userCreate ={
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -64,9 +65,9 @@ Router.post('/signup',(req,res)=>{
         genB: Number(req.body.genB)
     }
 
-    User.create(userCreate).then(done =>{
+    User.create(userCreate,{individualhooks:true}).then(done =>{
         res.render('login',{
-            err: null
+            errors: null
         })
     }).catch((err)=>{
         const errors = err.errors.reduce((hasil,each)=>{
@@ -77,6 +78,11 @@ Router.post('/signup',(req,res)=>{
             err:errors
         })
     })
+})
+
+Router.get('/logout',(req,res)=>{
+    req.session.destroy()
+    res.redirect('/login')
 })
 
 module.exports = Router
