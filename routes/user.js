@@ -131,8 +131,8 @@ Router.get('/suggestion_medicine/:id',(req,res)=>{
                data += "Medicine Name:" + "\n" + `- ${allData[i].medicineAnIllness.Medicine.name}` + "\n" + "\n" + "Medicine Brand:" + "\n" + `- ${allData[i].medicineAnIllness.Medicine.brand}` + "\n" + "\n" + "Medicine Descrition" + "\n" + `- ${allData[i].medicineAnIllness.Medicine.description}` + "\n" + "\n" + "Medicine Percentage" + "\n" + `- ${allData[i].percentage}%` + "\n" + "\n" + "Medicine Effectiveness" + "\n" + `- ${allData[i].description}` + "\n" + "\n" + "----------------------------------------------------------" + "\n" + "\n"
            }
            sendEmail(email,data)
-           res.send('email sudah dikirim')
-        })
+           res.render('emailconfirm')
+        }).catch((err)=>{console.log(err)})
     }).catch((err)=>{
         res.send(err)
     })
