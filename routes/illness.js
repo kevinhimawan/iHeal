@@ -7,9 +7,6 @@ const Medicine = Models.Medicine
 const Medicine_illnes = Models.Medicine_illnes
 const Illness = Models.Illness
 
-
-
-// Code...
 // Illness Admin Dashboard, 
 Router.get('/', (req,res)=>{
     Illness.findAll().then(illnessData =>{
