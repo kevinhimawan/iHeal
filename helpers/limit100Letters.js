@@ -1,7 +1,7 @@
 function limit100Letters(value){
     let string = ""
     for(let i = 0; i < value.length; i++){
-        if(i < 100){
+        if(i < 255){
             string+= value[i]
         }
     }

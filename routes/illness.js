@@ -7,10 +7,8 @@ const Medicine = Models.Medicine
 const Medicine_illnes = Models.Medicine_illnes
 const Illness = Models.Illness
 
-
-// Code...
-// Illness Admin Dashboard
-Router.get('/',(req,res)=>{
+// Illness Admin Dashboard, 
+Router.get('/', (req,res)=>{
     Illness.findAll().then(illnessData =>{
         res.render('Admin/Illness/illness', {illnessData: illnessData})
     })
@@ -55,9 +53,11 @@ Router.post('/add',(req,res)=>{
 Router.get('/edit/:id',(req,res)=>{
     let illnessId = Number(req.params.id)
     Illness.findById(illnessId).then(illnessData=>{
+        console.log(illnessData)
         res.render('Admin/Illness/editForm',{
             illnessData: illnessData,
-            error: null
+            error: null,
+            helper: require('../helpers/limit100Letters')
         })
     })
 })

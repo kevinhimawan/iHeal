@@ -1,48 +1,65 @@
 <!DOCTYPE html>
-
-<html> 
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Search</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <%- include('../partials/metaHead'); %>
+    <title>Home</title>
 </head>
 <body>
-    <center>
-        <h2>Search Page</h2>
-        </br>
-        <form action="/" method="post">
-            <label for="">User Symptoms</label>
-            </br>
-            <input type="text" placeholder="indication" name = "search">
-            </br>
-            </br>
-            <button type="submit">Submit</button>
+
+    <div class="row row_home">
+        <nav>
+            <div class="nav-wrapper">
+                <a style="left:0; letter-spacing:1px;font-size:2.4em;" href="/" class="brand-logo">iHeal</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="/admin"><i class="material-icons left pulse">person</i>Admin</a></li>
+                    <li><a href="/user/medicine"><i class="material-icons left pulse">local_hospital</i>Medicine</a></li>
+                    <li><a href="/user/illness"><i class="material-icons left pulse">local_hotel</i>Illness</a></li>
+                    <li><a href="/login/logout"><i class="material-icons left pulse">exit_to_app</i>Log Out</a></li>
+                </ul>
+            </div>
+        </nav>
+        <h4 class="home_moto">Fresh Outsite, Health Inside</h4>
+        <a class="btn btn-floating pulse inline_motto color_button_search"><i class="material-icons">search</i></a>
+        <form action="/" method="post" class="col s12">
+            <div class="col s12">
+                <input autocomplete="off" class="waves-effect waves-light search_input" type="text" placeholder="Indication or Symptoms " name = "search">
+                <input class="waves-effect waves-light btn button_submit_search color_button_search" type="submit">
+            </div>            
         </form>
+    </div>
+    <div class="row">
         <%if(data !== null){%>
             <%if(data.length == 0){%>
-                </br>
-                <p style = color:red >Harap memakai KEYWORD yang tepat<p>
+                <p class="error_message">Use proper keyword<p>
             <%}else if(data.length >0){%>
-            <table>
-                <tr>
-                    <th>No</th>
-                    <th>Illness Name</th>
-                    <th>Description</th>
-                    <th>Illness Detail<th>
-                </tr>
-                <%data.forEach((data,index)=>{%>
-                <tr>
-                    <td> <%= index+1    %></td>
-                    <td> <%= data.name    %></td>
-                    <td> <%= helper(data.description) %></td>
-                    <td>
-                    <a href = "/<%=data.id%>/medicine_detail">View</a>
-                    </td>
-                </tr>
-                <%})%>
-                </table>
+            <table class="responsive-table centered highlight" style="margin-top: 20px;">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Illness Name</th>
+                        <th>Description</th>
+                        <th>Illness Detail<th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%data.forEach((data,index)=>{%>
+                    <tr>
+                        <td><%= index+1%></td>
+                        <td><%= data.name%></td>
+                        <td><%= data.description %></td>
+                        <td>
+                        <a href = "/<%=data.id%>/medicine_detail">View</a>
+                        </td>
+                    </tr>
+                    <%})%>
+                </tbody>
+            </table>
             <%} %>
         <%}%>
-    </center>
+    </div>
 
 </body>
 </html>

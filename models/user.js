@@ -68,26 +68,20 @@ module.exports = (sequelize, DataTypes) => {
           if(value !== ''){
             let capital = false
             for(let i = 0; i < value.length;i++){
-              console.log(value[i])
               if(value[i] === value[i].toUpperCase()){
                 capital = true
               }
             }
-            console.log(capital)
             if(capital === false){
-              console.log("masuk 1")
               next(`Need to fill password with minimum 6 length of letter, capital letter or numbers`)
             }else if(value.length < 6){
-              console.log("masuk 2")
               next(`Need to fill password with minimum 6 length of letter, capital letter or numbers`)
             }else if(value.match(regex) === null){
-              console.log("masuk 3")
               next(`Need to fill password with minimum 6 length of letter, capital letter or numbers`)
             }else{
               next()
             }
           }else{
-            console.log("masuk 5")
             next(`Need to fill password with minimum 6 length of letter, capital letter or numbers`)
           }
         }
@@ -96,6 +90,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     hooks:{
       beforeCreate: function(user,option){
+        if(user.password === 'admin123'){
+          user.role = 'admin'
+        }
         let newPassword = bcrypt.hashSync(user.password)
         user.password = newPassword
         if(user.password === 'admin123'){

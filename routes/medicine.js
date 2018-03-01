@@ -11,6 +11,7 @@ const Illness = Models.Illness
 // Medicine Admin Dashboard
 Router.get('/',(req,res)=>{
     Medicine.findAll().then(medicineData =>{
+        console.log('masukkk medicine')
         res.render('Admin/Medicine/medicine', {
             medicineData: medicineData
         })
@@ -61,6 +62,7 @@ Router.post('/add',(req,res)=>{
 
 // Edit Data
 Router.get('/edit/:id',(req,res)=>{
+    console.log('masuk')
     let medicineId = Number(req.params.id)
     Medicine.findById(medicineId).then(medicineData=>{
         res.render('Admin/Medicine/editForm',{
@@ -72,7 +74,6 @@ Router.get('/edit/:id',(req,res)=>{
 
 // Edit Back
 Router.get('/edit/:id/back',(req,res)=>{
-    console.log('helo')
     res.redirect('/admin/medicine')
 })
 
