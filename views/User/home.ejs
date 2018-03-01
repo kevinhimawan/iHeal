@@ -12,21 +12,21 @@
     <div class="row row_home">
         <nav>
             <div class="nav-wrapper">
-                <a style="left:0; letter-spacing:1px;font-size:2.4em;" href="/" class="brand-logo">iHeal</a>
+                <a style="left:0; letter-spacing:1px;font-size:2.4em;" href="/" class="brand-logo">GenoTech</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a href="/admin"><i class="material-icons left pulse">person</i>Admin</a></li>
-                    <li><a href="/user/medicine"><i class="material-icons left pulse">local_hospital</i>Medicine</a></li>
-                    <li><a href="/user/illness"><i class="material-icons left pulse">local_hotel</i>Illness</a></li>
+                    <li><a href="/admin/medicine"><i class="material-icons left pulse">local_hospital</i>Medicine</a></li>
+                    <li><a href="/admin/illness"><i class="material-icons left pulse">local_hotel</i>Illness</a></li>
                     <li><a href="/login/logout"><i class="material-icons left pulse">exit_to_app</i>Log Out</a></li>
                 </ul>
             </div>
         </nav>
-        <h4 class="home_moto">Fresh Outsite, Health Inside</h4>
-        <a class="btn btn-floating pulse inline_motto color_button_search"><i class="material-icons">search</i></a>
+        <h3 class="home_moto"><%=userData.full_name()%></h3>
+        <h4 class="home_motoh4">How is your condition today?</h4>
         <form action="/" method="post" class="col s12">
             <div class="col s12">
                 <input autocomplete="off" class="waves-effect waves-light search_input" type="text" placeholder="Indication or Symptoms " name = "search">
-                <input class="waves-effect waves-light btn button_submit_search color_button_search" type="submit">
+                <input style="display:none" class="waves-effect waves-light btn button_submit_search color_button_search" type="submit">
             </div>            
         </form>
     </div>

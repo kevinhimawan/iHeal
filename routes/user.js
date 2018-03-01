@@ -16,11 +16,16 @@ const getPercentageMedicine = require('../helpers/getPercentageMedicine')
 const report = require('../helpers/report')
 
 Router.get('/',(req,res)=>{
-    res.render('User/home',{data:null})
+    let idUser = Number(req.session.idUser)
+    let name = User.getId(req.session.idUser)
+    name.then(data =>{
+        res.render('User/home',{data:null,userData:data})
+    })
 }) 
 
 Router.post('/',(req,res)=>{
     let search = req.body.search
+    
     Illness.findAll({
         where:{
             [Op.or]:[
@@ -29,8 +34,10 @@ Router.post('/',(req,res)=>{
             ]
         }
     }).then(data=>{
-        // res.send(data)
-        res.render('User/home',{data:data,helper:require('../helpers/limit100Letters')})
+            let name = User.getId(req.session.idUser)
+            name.then(nameData=>{
+            res.render('User/home',{data:data,helper:require('../helpers/limit100Letters'),userData:nameData})
+        })
     })
 })
 
@@ -117,7 +124,11 @@ Router.get('/suggestion_medicine/:id',(req,res)=>{
         })
 
         Promise.all(findMedicineIlness).then(allData=>{
-            
+            let data = allData[0].medicineAnIllness.Illness.name + "\n" + allData[0].medicineAnIllness.Illness.description + "\n" + '\n'
+            for(let i = 0; i < allData.length; i++){
+                data += "Medicine Name:" + "\n" + `- ${allData[i].medicineAnIllness.Medicine.name}` + "\n" + "\n" + "Medicine Brand:" + "\n" + `- ${allData[i].medicineAnIllness.Medicine.brand}` + "\n" + "\n" + "Medicine Descrition" + "\n" + `- ${allData[i].medicineAnIllness.Medicine.description}` + "\n" + "\n" + "Medicine Percentage" + "\n" + `- ${allData[i].percentage}%` + "\n" + "\n" + "Medicine Effectiveness" + "\n" + `- ${allData[i].description}` + "\n" + "\n" + "----------------------------------------------------------" + "\n" + "\n"
+            }
+            res.render('emailconfirm')
         })
     }).catch((err)=>{
         

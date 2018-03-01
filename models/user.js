@@ -116,5 +116,27 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   });
+
+  User.prototype.full_name = function (){
+    let time = new Date()
+        let hour = time.getHours()
+        let status;
+        if(hour >= 19){
+            status = 'Evening'
+        }else if(hour > 10){
+            status = 'Afternoon'
+        }else{
+            status = Morning
+        }
+    return (`Good ${status} ${this.firstName}`)
+  }
+
+  User.getId = function(models){
+    return new Promise((resolve,reject)=>{
+      this.findById(models).then(result=>{
+        resolve(result)
+      })
+    })
+  }
   return User;
 };

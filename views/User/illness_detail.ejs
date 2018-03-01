@@ -16,7 +16,11 @@
                       <p><%=illness.description%></p>
                 </div>
                 <div class="card-action">
-                    <a href="/suggestion_medicine/<%=allData[0].ReportId%>">Email Full Report</a>
+                    <%if(allData.length > 0){%>
+                        <a href="/suggestion_medicine/<%=allData[0].ReportId%>">Email Full Report</a>
+                    <%}else{%>
+                    <a href="/">Nothing can be reported</a>
+                    <%}%>
                     <a href="/<%=userId%>/medicine_detail/back"><span style="color:#f49d56;" class="badge"><i class="material-icons left">exit_to_app</i> Home</span></a>
                 </div>
             </div>
