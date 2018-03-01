@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "kevinhimawanhie",
-    "password": "1",
-    "database": "iHealDevelopment",
-    "host": "127.0.0.1",
+    "username": "fbtgnhkn",
+    "password": "C2RICaZWnVAAQe97hx1AT9vJjCvrfrZs",
+    "database": "fbtgnhkn",
+    "host": "baasu.db.elephantsql.com",
     "dialect": "postgres"
   }
 }
