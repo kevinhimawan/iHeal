@@ -10,7 +10,7 @@ const Illness = Models.Illness
 
 // Code...
 // Illness Admin Dashboard
-Router.get('/',Authentication.checkRole,(req,res)=>{
+Router.get('/',(req,res)=>{
     Illness.findAll().then(illnessData =>{
         res.render('Admin/Illness/illness', {illnessData: illnessData})
     })

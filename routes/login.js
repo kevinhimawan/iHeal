@@ -66,7 +66,7 @@ Router.post('/signup',(req,res)=>{
 
     User.create(userCreate).then(done =>{
         res.render('login',{
-            err: null
+            errors: null
         })
     }).catch((err)=>{
         const errors = err.errors.reduce((hasil,each)=>{
