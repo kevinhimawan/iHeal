@@ -14,6 +14,7 @@ const Medicineillnes_Report = Models.Medicineillnes_Report
 // Helper
 const getPercentageMedicine = require('../helpers/getPercentageMedicine')
 const report = require('../helpers/report')
+const sendEmail = require('../helpers/mailgun')
 
 Router.get('/',(req,res)=>{
     res.render('User/home',{data:null})
@@ -117,10 +118,16 @@ Router.get('/suggestion_medicine/:id',(req,res)=>{
         })
 
         Promise.all(findMedicineIlness).then(allData=>{
-            
+            let email = req.session.email
+            let data = allData[0].medicineAnIllness.Illness.name + "\n" + allData[0].medicineAnIllness.Illness.description + "\n" + '\n'
+           for(let i = 0; i < allData.length; i++){
+               data += "Medicine Name:" + "\n" + `- ${allData[i].medicineAnIllness.Medicine.name}` + "\n" + "\n" + "Medicine Brand:" + "\n" + `- ${allData[i].medicineAnIllness.Medicine.brand}` + "\n" + "\n" + "Medicine Descrition" + "\n" + `- ${allData[i].medicineAnIllness.Medicine.description}` + "\n" + "\n" + "Medicine Percentage" + "\n" + `- ${allData[i].percentage}%` + "\n" + "\n" + "Medicine Effectiveness" + "\n" + `- ${allData[i].description}` + "\n" + "\n" + "----------------------------------------------------------" + "\n" + "\n"
+           }
+           sendEmail(email,data)
+           res.send('email sudah dikirim')
         })
     }).catch((err)=>{
-        
+        res.send(err)
     })
     
 })
