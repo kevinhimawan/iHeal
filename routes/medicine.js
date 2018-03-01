@@ -113,7 +113,7 @@ Router.get('/delete/:id',(req,res)=>{
 
 // Routing Assign
 Router.get('/assign/:id',(req,res)=>{
-    console.log('masukkk')
+    console.log('masukkk bagian assign')
     let medicineId = Number(req.params.id)
     Medicine_illnes.findAll({where:{medicineId:medicineId},include:[{model:Illness}]}).then(list=>{
         const illnessId = list.reduce((hasil,each)=>{
@@ -140,7 +140,7 @@ Router.get('/assign/:id/back',(req,res)=>{
 })
 
 // Add Assign Illness
-Router.get('/assign/:medicineId/:illnessId',(req,res)=>{
+Router.get('/assign/:medicineId/assign/:illnessId',(req,res)=>{
     let addingItem = {
         ilnessId: Number(req.params.illnessId),
         medicineId: Number(req.params.medicineId),

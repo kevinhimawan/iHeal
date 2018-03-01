@@ -62,10 +62,10 @@ app.use('/admin/medicine', MedicineAdmin)
 app.use('/admin/illness',IllnessAdmin)
 
 app.use((req,res,next)=>{
-    req.session.destroy()
+    const err = new Error ("Not Found")
     res.render('landingError')
 })
-
+ 
 
 
 

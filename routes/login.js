@@ -24,6 +24,8 @@ Router.post('/',(req,res)=>{
                 if(match){
                     req.session.idUser = result.id
                     req.session.role = result.role
+                    req.session.email = result.email
+                    
                     res.redirect('/')
                 }else{
                     let err = {

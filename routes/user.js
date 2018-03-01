@@ -91,7 +91,6 @@ Router.get('/:id/medicine_detail',(req,res)=>{
                                 allData: allCombine,
                                 userId: idUser
                             })
-                            
                         })
                     })
                 })                
@@ -100,12 +99,30 @@ Router.get('/:id/medicine_detail',(req,res)=>{
     })  
 })
 
-Router.get('/suggestion_medicine',(req,res)=>{
-    User.findAll().then(data=>{
-        Medicine.findAll().then(data2=>{
-            res.send(data,data2)
+
+Router.get('/suggestion_medicine/:id',(req,res)=>{
+    let report = Number(req.params.id)
+    Medicineillnes_Report.findAll({
+        where:{ReportId: report}
+    }).then(data=>{
+        const findMedicineIlness = data.map(element =>{
+            return new Promise ((resolve,reject)=>{
+                Medicine_illnes.findOne({
+                    where:{id: element.MedicineIllnessId},include:[{model:Illness},{model:Medicine}]
+                }).then(medicine_illness =>{
+                    element.medicineAnIllness = medicine_illness
+                    resolve(element)
+                }).catch((err)=>{reject(err)})
+            })
         })
+
+        Promise.all(findMedicineIlness).then(allData=>{
+            
+        })
+    }).catch((err)=>{
+        
     })
+    
 })
 
 module.exports = Router
