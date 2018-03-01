@@ -9,39 +9,74 @@
 </head>
 <body>
     <div class="row">
-        <div class="col s12 m6">
+        <div class="col s12">
             <div class="card blue-grey darken-1">
                 <div class="card-content white-text">
                     <span class="card-title"><%=illness.name%></span>
                       <p><%=illness.description%></p>
                 </div>
                 <div class="card-action">
-                        <a href="/suggestion_medicine">Suggestion Medicine</a>
-                        <a href="/prohibition_medicine">Prohibition Medicine </a>
+                        <a href="/suggestion_medicine">Email Full Report</a>
+                        <a href="/<%=userId%>/medicine_detail/back"><span style="color:#f49d56;" class="badge"><i class="material-icons left">exit_to_app</i> Home</span></a>
                 </div>
             </div>
+
+            <table class="highlight centered responsive-table blue lighten-5">
+                <h4 style="text-align:center;margin:60px 0;">Suggestion Medicine</h4>
+                <thead>
+                    <tr>
+                        <td style="text-align:center;">NO</td>
+                        <td style="text-align:center;">Medicine Name</td>
+                        <td style="text-align:center;">Brand</td>
+                        <td style="text-align:center;">Percentage</td>
+                        <td style="text-align:center;width:35%">Description</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%allData.forEach((accept,index) =>{%>
+                        <%if(accept.percentage > 0){%>
+                            <tr>
+                                <td><%=index + 1%></td>
+                                <td><%=accept.Medicine.name%></td>
+                                <td><%=accept.Medicine.brand%></td>
+                                <td><%=accept.percentage%>%</td>
+                                <td style="text-align:left"><%=accept.description%></td>
+                            </tr>
+                        <%}%>
+                    <%})%>
+                </tbody>
+            </table>           
+            <table class="highlight centered responsive-table red lighten-5">
+                <h4 style="text-align:center;margin:60px 0;">Prohibtion Medicine</h4>
+                <thead>
+                    <tr>
+                        <td style="text-align:center">NO</td>
+                        <td style="text-align:center">Medicine Name</td>
+                        <td style="text-align:center">Brand</td>
+                        <td style="text-align:center">Percentage</td>
+                        <td style="text-align:center; width:35%;">Description</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%allData.forEach((accept,index) =>{%>
+                        <%if(accept.percentage === 0){%>
+                            <tr>
+                                <td><%=index + 1%></td>
+                                <td><%=accept.Medicine.name%></td>
+                                <td><%=accept.Medicine.brand%></td>
+                                <td><%=accept.percentage%>%</td>
+                                <td style="text-align:left"><%=accept.description%></td>
+                            </tr>
+                        <%}%>
+                    <%})%>
+                </tbody>
+            </table>           
         </div>
     </div>
-    <table>
-        <thead>
-            <tr>
-                <td>NO</td>
-                <td>Medicine Name</td>
-                <td>Brand</td>
-                <td>Medicine Description</td>
-            </tr>
-        </thead>
-        <tbody>
-            <%acceptedData.forEach((accept,index) =>{%>
-                <tr>
-                    <td><%=index + 1%></td>
-                    <td><%=accept.Medicine.name%></td>
-                    <td><%=accept.Medicine.brand%></td>
-                    <td><%=accept.Medicine.description%></td>
-                </tr>
-            <%})%>
-        </tbody>
-    </table>                
+    
+        
+        
+    <%- include('../partials/scriptBasic'); %>
 </body>
 </html>
                 

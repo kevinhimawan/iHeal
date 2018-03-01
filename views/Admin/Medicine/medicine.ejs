@@ -19,7 +19,6 @@
     </style>
 </head>
 <body>
-    <div class="container">
         
         <a class="waves-effect waves-light btn small_button" href="/admin/medicine/back"><i class="material-icons">arrow_back</i></a>
         <a class="waves-effect waves-light btn small_button"  href="/admin/medicine/add"> <i class="material-icons">add</i></a>
@@ -29,8 +28,8 @@
                     <th>No</th>
                     <th>Name</th>
                     <th>Brand</th>
-                    <th>Description</th>
-                    <th style="width:25%">Action</th>
+                    <th style="width:55%">Description</th>
+                    <th style="width:20%">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,7 +38,7 @@
                         <td><%=index+1%></td>
                         <td><%=value.name%></td>
                         <td><%=value.brand%></td>
-                        <td><%=value.description%></td>
+                        <td style="text-align:left"><%=value.description%></td>
                         <td>
                             <a href="/admin/medicine/edit/<%=value.id%>" class="waves-effect waves-light btn small_button"><i class="material-icons">edit</i></a>
                             <a href="/admin/medicine/delete/<%=value.id%>" class="waves-effect waves-light btn small_button" onclick="return confirm('Sure want to delete this medicine? Yer or No')" ><i class="material-icons">delete</i></a>
@@ -49,7 +48,7 @@
                 <%}%>
             </tbody>
         </table>
-    </div>
+    
     
    
     <%- include('../../partials/sweetAlert'); %>

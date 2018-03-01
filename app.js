@@ -50,6 +50,7 @@ app.use(function(req,res,next){
     }
 })
 
+
 // Routes Admin
 const IndexAdmin = require('./routes/index')
 const MedicineAdmin = require('./routes/medicine')
@@ -60,10 +61,10 @@ app.use('/admin', IndexAdmin)
 app.use('/admin/medicine', MedicineAdmin)
 app.use('/admin/illness',IllnessAdmin)
 
-// app.use((req,res,next)=>{
-//     req.session.destroy()
-//     res.render('landingError')
-// })
+app.use((req,res,next)=>{
+    req.session.destroy()
+    res.render('landingError')
+})
 
 
 

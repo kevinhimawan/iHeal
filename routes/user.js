@@ -8,8 +8,6 @@ const Medicine = Models.Medicine
 const Medicine_illnes = Models.Medicine_illnes
 const Illness = Models.Illness
 const User = Models.User
-
-
 const Report = Models.Report
 const Medicineillnes_Report = Models.Medicineillnes_Report
 
@@ -31,8 +29,13 @@ Router.post('/',(req,res)=>{
             ]
         }
     }).then(data=>{
+        // res.send(data)
         res.render('User/home',{data:data,helper:require('../helpers/limit100Letters')})
     })
+})
+
+Router.get('/:id/medicine_detail/back',(re,res)=>{
+    res.redirect('/')
 })
 
 Router.get('/:id/medicine_detail',(req,res)=>{
@@ -67,46 +70,28 @@ Router.get('/:id/medicine_detail',(req,res)=>{
 
                             Medicineillnes_Report.create(createReport_Medicine).then(createdEachReportMedicine =>{
                                 resolve(createdEachReportMedicine)
-                                
                             }).catch((err)=>{reject(err)})
                         })
                     })
                     Promise.all(findPercentage).then(getCombineData=>{
-                        const rejectData = getCombineData.filter(rejected =>{
-                            if(rejected.percentage < 50){
-                                return new Promise((resolve,reject)=>{
-                                    Medicine_illnes.findOne({where:{id:rejected.MedicineIllnessId}}).then(MedicineIllness=>{
-                                        Medicine.findOne({where:{id:MedicineIllness.medicineId}}).then(MedicineData=>{
-                                            rejected.Medicine = MedicineData
-                                            resolve(rejected)
-                                        }).catch((err)=>{reject(err)})
-                                    }).catch((err)=>{console.log(err)})
-                                })
-                            }
-                        })
-
-                        const acceptedData = getCombineData.filter(accepted =>{
-                            if(accepted.percentage > 50){
-                                return new Promise ((resolve,reject)=>{
-                                    Medicine_illnes.findOne({where:{id:accepted.MedicineIllnessId}}).then(MedicineIllness=>{
-                                        Medicine.findOne({where:{id:MedicineIllness.medicineId}}).then(MedicineData=>{
-                                            accepted.Medicine = MedicineData
-                                            resolve(accepted)
-                                        }).catch((err)=>{reject(err)})
-                                    }).catch((err)=>{console.log(err)})
-                                })
-                            }
-                        })
-
-                        Promise.all(rejectData).then(rejectedData=>{
-                            Promise.all(acceptedData).then(acceptedData=>{
-                                console.log(acceptedData[0])
-                                res.render('User/illness_detail',{
-                                    illness: illnessData,
-                                    acceptedData: acceptedData,
-                                    rejectedData: rejectedData
+                        const addMedicine = getCombineData.map(element =>{
+                            return new Promise ((resolve,reject)=>{
+                                Medicine_illnes.findOne({where:{id:element.MedicineIllnessId}}).then(MedicineIllness =>{
+                                    Medicine.findOne({where:{id:MedicineIllness.medicineId}}).then(MedicineData =>{
+                                        element.Medicine = MedicineData
+                                        resolve(element)
+                                    })
                                 })
                             })
+                        })
+
+                        Promise.all(addMedicine).then(allCombine=>{
+                            res.render('User/illness_detail',{
+                                illness: illnessData,
+                                allData: allCombine,
+                                userId: idUser
+                            })
+                            
                         })
                     })
                 })                
@@ -124,12 +109,3 @@ Router.get('/suggestion_medicine',(req,res)=>{
 })
 
 module.exports = Router
-
-// <%acceptedData.forEach((accept,index) =>{%>
-//     <tr>
-//         <td><%=index + 1%></td>
-//         <td><%=accept.Medicine.name%></td>
-//         <td><%=accept.Medicine.brand%></td>
-//         <td><%=accept.Medicine.description%></td>
-//     </tr>
-// <%})%>

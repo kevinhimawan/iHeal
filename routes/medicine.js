@@ -113,12 +113,14 @@ Router.get('/delete/:id',(req,res)=>{
 
 // Routing Assign
 Router.get('/assign/:id',(req,res)=>{
+    console.log('masukkk')
     let medicineId = Number(req.params.id)
     Medicine_illnes.findAll({where:{medicineId:medicineId},include:[{model:Illness}]}).then(list=>{
         const illnessId = list.reduce((hasil,each)=>{
             hasil.push(each.ilnessId)
             return hasil
         },[])
+
         Illness.findAll({where:{id:{[Op.notIn]: illnessId}}}).then(filterIllnessList =>{
             Medicine.findById(medicineId).then(medicineData=>{
                 res.render('Admin/Medicine/assignItem',{
@@ -127,9 +129,9 @@ Router.get('/assign/:id',(req,res)=>{
                     pickedIllness: list,
                     helper: require('../helpers/limit100Letters'),
                 })
-            })
-        })
-    })
+            }).catch((err)=>{console.log(err)})
+        }).catch((err)=>{console.log(err)})
+    }).catch((err)=>{console.log(err)})
 })
 
 // Back From Assign
@@ -139,12 +141,10 @@ Router.get('/assign/:id/back',(req,res)=>{
 
 // Add Assign Illness
 Router.get('/assign/:medicineId/:illnessId',(req,res)=>{
-    // console.log(req.params.illnessId)
     let addingItem = {
         ilnessId: Number(req.params.illnessId),
         medicineId: Number(req.params.medicineId),
     }
-    console.log(addingItem)
     
     Medicine_illnes.create(addingItem).then(done=>{
         res.redirect(req.get(`referer`))

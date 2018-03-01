@@ -5,8 +5,6 @@ module.exports = (sequelize, DataTypes) => {
     MedicineIllnessId: DataTypes.INTEGER,
     description: DataTypes.TEXT,
     percentage: DataTypes.INTEGER,
-    ilnessId: DataTypes.INTEGER,
-    medicineId: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {
