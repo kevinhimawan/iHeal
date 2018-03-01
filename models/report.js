@@ -12,5 +12,20 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   });
+
+  Report.associate = function (models){
+    Report.belongsTo(models.User,{
+      foreignKey: 'UserId'
+    })
+
+    Report.hasMany(models.Medicineillnes_Report,{
+      foreignKey: 'ReportId'
+    })
+
+    Report.belongsToMany(models.Medicine_illnes,{
+      foreignKey: 'ReportId',
+      through: 'Medicineillnes_Report'
+    })
+  }
   return Report;
 };

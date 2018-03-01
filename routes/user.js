@@ -38,14 +38,11 @@ Router.get('/:id/medicine_detail',(req,res)=>{
     let idUser = Number(req.session.idUser)
     let illnessId = req.params.id
     User.findById(idUser).then(userData =>{
-        console.log('USER')
-        console.log(JSON.parse(JSON.stringify(idUser)))
 
         let userGenA = Number(userData.genA)
         let userGenB = Number(userData.genB)
-        Medicine_illnes.findAll({where:{ilnessId: illnessId},include: [{model:Medicine}]}).then(listMedicine=>{
+        Medicine_illnes.findAll({where:{ilnessId: illnessId},attributes: ['id','medicineId'],include: [{model:Medicine}]}).then(listMedicine=>{
             Illness.findById(illnessId).then(illnessData =>{
-                // Create Report
                 let createReport = {
                     UserId: idUser,
                     date: new Date(),
@@ -55,37 +52,63 @@ Router.get('/:id/medicine_detail',(req,res)=>{
 
                 Report.create(createReport).then(justCreatedReport =>{
                     let reportId = justCreatedReport.id
-                    console.log('create REPORT')
-                    console.log(JSON.parse(JSON.stringify(justCreatedReport)))
                     const findPercentage = listMedicine.map(each =>{
-                        
                         return new Promise((resolve,reject)=>{
                             let percentage = getPercentageMedicine(userGenA,userGenB,each.Medicine.minGenA,each.Medicine.maxGenA,each.Medicine.minGenB,each.Medicine.maxGenB)
                             let description = report(percentage)
-    
+                            
                             let createReport_Medicine = {
                                 ReportId: justCreatedReport.id,
-                                MedicineIllnessId: each.Medicine.id,
+                                MedicineIllnessId: each.id,
                                 description: description,
                                 percentage: percentage
                             }
-                            Medicineillnes_Report.create(createReport_Medicine).then(createdEachReportMedicine =>{
-                                console.log('Medicineillnes_Report')
-                                console.log(JSON.parse(JSON.stringify(createdEachReportMedicine)))
-                                resolve(each)
-                            })
-                            
-                        }).catch((err)=>{reject(err)})
-                    })
-                    
-                    Promise.all(findPercentage).then(done =>{
-                        res.send(createdEachReportMedicine)
-                        // // res.render('User/illness_detail',{data:data})
-                        
-                    })
-                })
 
-                
+                            Medicineillnes_Report.create(createReport_Medicine).then(createdEachReportMedicine =>{
+                                resolve(createdEachReportMedicine)
+                                
+                            }).catch((err)=>{reject(err)})
+                        })
+                    })
+                    Promise.all(findPercentage).then(getCombineData=>{
+                        const rejectData = getCombineData.filter(rejected =>{
+                            if(rejected.percentage < 50){
+                                return new Promise((resolve,reject)=>{
+                                    Medicine_illnes.findOne({where:{id:rejected.MedicineIllnessId}}).then(MedicineIllness=>{
+                                        Medicine.findOne({where:{id:MedicineIllness.medicineId}}).then(MedicineData=>{
+                                            rejected.Medicine = MedicineData
+                                            resolve(rejected)
+                                        }).catch((err)=>{reject(err)})
+                                    }).catch((err)=>{console.log(err)})
+                                })
+                            }
+                        })
+
+                        const acceptedData = getCombineData.filter(accepted =>{
+                            if(accepted.percentage > 50){
+                                return new Promise ((resolve,reject)=>{
+                                    Medicine_illnes.findOne({where:{id:accepted.MedicineIllnessId}}).then(MedicineIllness=>{
+                                        Medicine.findOne({where:{id:MedicineIllness.medicineId}}).then(MedicineData=>{
+                                            accepted.Medicine = MedicineData
+                                            resolve(accepted)
+                                        }).catch((err)=>{reject(err)})
+                                    }).catch((err)=>{console.log(err)})
+                                })
+                            }
+                        })
+
+                        Promise.all(rejectData).then(rejectedData=>{
+                            Promise.all(acceptedData).then(acceptedData=>{
+                                console.log(acceptedData[0])
+                                res.render('User/illness_detail',{
+                                    illness: illnessData,
+                                    acceptedData: acceptedData,
+                                    rejectedData: rejectedData
+                                })
+                            })
+                        })
+                    })
+                })                
             })
         })
     })  
@@ -93,3 +116,12 @@ Router.get('/:id/medicine_detail',(req,res)=>{
 
 
 module.exports = Router
+
+// <%acceptedData.forEach((accept,index) =>{%>
+//     <tr>
+//         <td><%=index + 1%></td>
+//         <td><%=accept.Medicine.name%></td>
+//         <td><%=accept.Medicine.brand%></td>
+//         <td><%=accept.Medicine.description%></td>
+//     </tr>
+// <%})%>

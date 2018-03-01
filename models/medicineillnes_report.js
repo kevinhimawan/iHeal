@@ -4,7 +4,9 @@ module.exports = (sequelize, DataTypes) => {
     ReportId: DataTypes.INTEGER,
     MedicineIllnessId: DataTypes.INTEGER,
     description: DataTypes.TEXT,
-    percentage: DataTypes.INTEGER
+    percentage: DataTypes.INTEGER,
+    ilnessId: DataTypes.INTEGER,
+    medicineId: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {
@@ -12,5 +14,14 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   });
+
+  Medicineillnes_Report.associate = function(models){
+    Medicineillnes_Report.belongsTo(models.Medicine_illnes,{
+      foreignKey: 'MedicineIllnessId'
+    })
+    Medicineillnes_Report.belongsTo(models.Report,{
+      foreignKey: 'ReportId'
+    })
+  }
   return Medicineillnes_Report;
 };

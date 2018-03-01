@@ -23,6 +23,11 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'ilnessId',
       hooks: true
     })
+
+    Medicine_illnes.belongsToMany(models.Report,{
+      foreignKey: 'MedicineIllnessId',
+      through: 'Medicineillnes_Report'
+    })
   }
   return Medicine_illnes;
 };
