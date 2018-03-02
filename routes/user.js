@@ -88,8 +88,8 @@ Router.get('/:id/medicine_detail',(req,res)=>{
                                     Medicine.findOne({where:{id:MedicineIllness.medicineId}}).then(MedicineData =>{
                                         element.Medicine = MedicineData
                                         resolve(element)
-                                    })
-                                })
+                                    }).catch((err)=>{reject(err)})
+                                }).catch((err)=>{console.log(err)})
                             })
                         })
 
@@ -101,6 +101,8 @@ Router.get('/:id/medicine_detail',(req,res)=>{
                             })
                         })
                     })
+                }).catch((err)=>{
+                    console.log(err)
                 })                
             })
         })

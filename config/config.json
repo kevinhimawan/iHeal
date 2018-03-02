@@ -1,9 +1,13 @@
 {
   "development": {
-    "username": "fbtgnhkn",
-    "password": "C2RICaZWnVAAQe97hx1AT9vJjCvrfrZs",
-    "database": "fbtgnhkn",
-    "host": "baasu.db.elephantsql.com",
+    "username": "kevinhimawanhie",
+    "password": "1",
+    "database": "iHealDevelopment",
+    "host": "127.0.0.1",
     "dialect": "postgres"
+  },
+  "production":{
+    "use_env_variable" : "DATABASE_URL",
+    "webhost": "https://cryptic-mountain-43670.herokuapp.com/"
   }
 }
