@@ -126,7 +126,7 @@ module.exports = (sequelize, DataTypes) => {
         }else if(hour > 10){
             status = 'Afternoon'
         }else{
-            status = Morning
+            status = 'Morning'
         }
     return (`Good ${status} ${this.firstName}`)
   }

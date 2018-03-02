@@ -18,7 +18,7 @@
         <form action="/login" method="POST" class="col s12" style="text-align:center">
             <div class="row">
                 <div class="input-field col s12">
-                    <input name="name" value="kevinhimawanhie" id="name" type="text" class="validate" autocomplete="on">
+                    <input name="name" id="name" type="text" class="validate" autocomplete="on">
                     <label for="name">Username or Email</label>
                     <%if(errors && errors.name){%>
                         <span class="error_formSignIn"><%=errors.name%></span>
@@ -27,7 +27,7 @@
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input name="password" value="admin123" id="password" type="password" class="validate" autocomplete="on">
+                    <input name="password"  id="password" type="password" class="validate" autocomplete="on">
                     <label for="password">Password</label>
                     <%if(errors && errors.password){%>
                         <span class="error_formSignIn"><%=errors.password%></span>
